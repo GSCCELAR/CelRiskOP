@@ -133,14 +133,14 @@
 	{
 		$.ajax({
 			url: "<?php echo DIR_WEB ?>borrar_imagen.php",
-			data: {puesto_id: id, nombre: nombre},
+			data: {puesto_id: id, nombre: nombre, item_pos : "<?php echo $item_pos; ?>"},
 			type: "POST",
 			success: function(resp){
 				if(/^ok$/.test(resp)){
 					jAlert("Se elimino la imagen correctamente","success",function(){
 						$.ajax({
-								url: "<?php echo DIR_WEB; ?>ver.php",
-								data: {puesto_id : <?php echo $puesto_id; ?>},
+								url: "<?php echo DIR_WEB; ?>ver_nuevo.php",
+								data: {puesto_id : <?php echo $puesto_id; ?>, item_pos : "<?php echo $item_pos; ?>"},
 								type: "POST",
 								dataType: "html",
 								success: function(data){
