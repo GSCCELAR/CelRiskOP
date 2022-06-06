@@ -1,12 +1,12 @@
 <?php
     define("iC", true);
-	require_once (dirname(__FILE__) . "/../../../../../../conf/config.php");
-	Aplicacion::validarAcceso(9,10);
+	//define("DEBUG",true);
+	require_once(dirname(__FILE__) . "/../../../../../../../../conf/config.php");
+	Aplicacion::validarAcceso(9, 10);
 	BD::changeInstancia("mysql");
-	
-	$sede_id = isset($_POST["sede_id"]) ? intval($_POST["sede_id"]) : -1; 
-	$sede = new Sede();
-	if(!$sede->load($sede_id)) die("Error al cargar la sede");
+
+	$item = isset($_POST["item_pos"]) ? intval($_POST["item_pos"]) : die("Error al cargar el item");
+	$puesto_id = isset($_POST["puesto_id"]) ? intval($_POST["puesto_id"]) : die("Error al cargar el ID del puesto"); 
 
 	$fileElementName = 'file_upload_archivo';
 	
@@ -17,8 +17,10 @@
 		$msg = "";
 		$archivo = "";
 		$extension = "";
+		/*if(!is_dir(RUTA_TEMPORAL))
+			@mkdir(RUTA_TEMPORAL);*/
 		
-		$pathDestino = RUTA_IMAGENES . $sede_id . "/";
+		$pathDestino = RUTA_TEMPORAL . $puesto_id . "/" . $item . "/";
         $fi = new ArrayIterator(array());
         if(is_dir($pathDestino))
 		    $fi = new FilesystemIterator($pathDestino);
@@ -29,7 +31,7 @@
 		}else
 		{	
 			if (!is_dir($pathDestino))
-				@mkdir($pathDestino);
+				@mkdir($pathDestino, 0777, true);
 			
 			if (!empty($_FILES[$fileElementName]['error'])) {
 				switch($_FILES[$fileElementName]['error']) {
@@ -84,7 +86,7 @@
 		echo "{";
 		echo				"error: '" . $error . "',\n";
 		echo				"msg: '" . $msg . "',\n";
-		echo				"archivo: '" .$sede_id."/".$archivo. "'\n";
+		echo				"archivo: '" .$puesto_id."/".$archivo. "'\n";
 		echo "}";
 	}
 

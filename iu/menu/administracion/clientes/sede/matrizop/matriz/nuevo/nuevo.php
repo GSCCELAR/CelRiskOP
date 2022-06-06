@@ -451,10 +451,11 @@ $sector_id = isset($_POST["sector_id"]) ? $_POST["sector_id"] : die("Error al re
 		<div id="seccion-6" style="height:450px; overflow: auto;" class="tabs">
 			<table>
 				<tr>
-					<td><span style="font-size:14px;font-weight:bold;">RECOMENDACION</span></td>
-					<td><span style="font-size:14px;font-weight:bold;">RESPONSABLE</span></td>
-					<td><span style="font-size:14px;font-weight:bold;">CARGO</span></td>
-					<td><span style="font-size:14px;font-weight:bold;">FRECUENCIA DE<BR>SEGUIMIENTO</span></td>
+					<td style="text-align:center;"><span style="font-size:12px;font-weight:bold;">RECOMENDACION</span></td>
+					<td style="text-align:center;"><span style="font-size:12px;font-weight:bold;">RESPONSABLE</span></td>
+					<td style="text-align:center;"><span style="font-size:12px;font-weight:bold;">CARGO</span></td>
+					<td style="text-align:center;"><span style="font-size:12px;font-weight:bold;">FRECUENCIA DE<BR>SEGUIMIENTO</span></td>
+					<td style="text-align:center;"><span style="font-size:12px;font-weight:bold;">EVIDENCIAS</span></td>
 				</tr>
 				<?php
 
@@ -481,6 +482,7 @@ $sector_id = isset($_POST["sector_id"]) ? $_POST["sector_id"] : die("Error al re
 						print('		<option value="7">Anual</option>');
 						print('		</select></center>');
 						print('	</td>');
+						print('<td><img id="img' . $i . '" style=\'margin:3px;margin-left:10px;cursor:pointer;width:22px;height:22px;\' onclick=\'cargarImagenes('.$i.')\' src=\'imagenes/menu/imagenes.png\' title=\'Cargar Imagenes\'></td>');
 						print('	</tr>');
 					} else {
 						print('<tr>');
@@ -504,6 +506,7 @@ $sector_id = isset($_POST["sector_id"]) ? $_POST["sector_id"] : die("Error al re
 						print('		<option value="7">Anual</option>');
 						print('		</select></center>');
 						print('	</td>');
+						print('<td><img id="img' . $i . '" style=\'margin:3px;margin-left:10px;cursor:pointer;width:22px;height:22px;display: none\' onclick=\'cargarImagenes('.$i.')\' src=\'imagenes/menu/imagenes.png\' title=\'Cargar Imagenes\'></td>');
 						print('	</tr>');
 					}
 				}
@@ -848,11 +851,13 @@ $sector_id = isset($_POST["sector_id"]) ? $_POST["sector_id"] : die("Error al re
 		cadena2 = "respon" + num2;
 		cadena3 = "cargo" + num2;
 		cadena4 = "frec" + num2;
+		cadena5 = "img" + num2;
 
 		document.getElementById(cadena1).style.display = "block";
 		document.getElementById(cadena2).style.display = "block";
 		document.getElementById(cadena3).style.display = "block";
 		document.getElementById(cadena4).style.display = "block";
+		document.getElementById(cadena5).style.display = "block";
 	}
 
 
@@ -946,6 +951,18 @@ $sector_id = isset($_POST["sector_id"]) ? $_POST["sector_id"] : die("Error al re
 			}
 		}
 	}
+
+	function cargarImagenes(id) {
+		showMessage();
+		$("#ventana5").load("<?php echo DIR_WEB; ?>ver_nuevo.php", {
+			item: id,
+			puesto_id: "<?php echo $puesto_id; ?>"
+		}, function(res) {
+			hideMessage();
+		});
+	}
+
+
 
 
 	function evaluar(selectObject) //evaluar el estado de los check box

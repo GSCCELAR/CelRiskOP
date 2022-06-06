@@ -16,6 +16,7 @@
 	define("IU", dirname(__FILE__) . "/../iu/");
 	define("RUTA_SOPORTES", dirname(__FILE__) . "/../soportes/reportes/");
 	define("RUTA_IMAGENES", dirname(__FILE__) . "/../soportes/imagenes/");
+	define("RUTA_TEMPORAL", dirname(__FILE__) . "/../temp/");
 	
 	require_once(dirname(__FILE__) . "/autoload.php");
 
